@@ -1,6 +1,4 @@
-package com.example.ipr
-
-import android.graphics.drawable.Drawable
+package com.example.ipr.data
 
 data class Users(
     val id: Int,

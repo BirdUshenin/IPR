@@ -1,8 +1,11 @@
-package com.example.ipr
+package com.example.ipr.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.example.ipr.R
+import com.example.ipr.data.Users
+import com.example.ipr.domain.OnUserItemClickListener
 
 class AdapterUsers(private val userList: List<Users>) :
     ListAdapter<Users, UsersItemViewHolder>(UsersItemDiffCallback()) {

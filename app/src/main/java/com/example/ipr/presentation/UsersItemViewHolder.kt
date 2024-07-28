@@ -1,12 +1,14 @@
-package com.example.ipr
+package com.example.ipr.presentation
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ipr.R
+import com.example.ipr.data.Users
 import com.squareup.picasso.Picasso
 
-class UsersItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class UsersItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     var PhotoUser: ImageView = view.findViewById(R.id.photo)
     val NameUser = view.findViewById<TextView>(R.id.name)

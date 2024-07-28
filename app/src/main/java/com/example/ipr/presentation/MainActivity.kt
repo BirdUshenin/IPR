@@ -1,16 +1,18 @@
-package com.example.ipr
+package com.example.ipr.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ipr.domain.OnUserEditListener
+import com.example.ipr.domain.OnUserItemClickListener
+import com.example.ipr.R
+import com.example.ipr.data.Users
 import com.example.ipr.databinding.ActivityMainBinding
 import com.squareup.picasso.BuildConfig
+import data.DataUsers
 
 class MainActivity : AppCompatActivity(), OnUserEditListener {
 

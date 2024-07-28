@@ -1,7 +1,7 @@
-package com.example.ipr
+package com.example.ipr.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-
+import com.example.ipr.data.Users
 
 class UsersItemDiffCallback : DiffUtil.ItemCallback<Users>() {
 

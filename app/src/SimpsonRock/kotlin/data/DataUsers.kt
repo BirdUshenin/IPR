@@ -1,4 +1,7 @@
-package com.example.ipr
+package data
+
+import com.example.ipr.R
+import com.example.ipr.Users
 
 object DataUsers {
     val userServer = mutableListOf(
