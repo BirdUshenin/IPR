@@ -24,20 +24,21 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
     flavorDimensions("default")
     productFlavors {
-        create("Camera") {
+        create("SimpsonUsually") {
             applicationIdSuffix = ".flavor1"
             versionNameSuffix = "-flavor1"
-            buildConfigField("String", "Netbook", "\"free\"") // Define Netbook for Camera flavor
+            buildConfigField("String", "SimpsonUsually", "\"simple\"") // Define Netbook for Camera flavor
         }
-        create("Netbook") {
+        create("SimpsonRock") {
             applicationIdSuffix = ".flavor2"
             versionNameSuffix = "-flavor2"
-            buildConfigField("String", "Netbook", "\"paid\"") // Define Netbook for Netbook flavor
+            buildConfigField("String", "SimpsonRock", "\"rock\"") // Define Netbook for Netbook flavor
         }
     }
 
@@ -47,6 +48,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -59,4 +64,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.picasso)
+
 }
