@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val userServer = DataUsers.userServer
-        adapter = AdapterUsers(userServer)
+        adapter = AdapterUsers()
+
         adapter.setOnUserItemClickListener(object : OnUserItemClickListener {
             override fun onUserItemClicked(user: Users) {
                 val fragmentB = EditUserFragment()
@@ -51,23 +51,26 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
         })
         recyclerView.adapter = adapter
 
+        val userServer = DataUsers.userServer
+        adapter.submitList(userServer)
     }
 
     override fun onUserEdited(user: Users) {
         val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
         if (index != -1) {
             DataUsers.userServer[index] = user
-            adapter.notifyDataSetChanged()
-        }
-    }
-
-    fun getFeatures(): List<String> {
-        return if (BuildConfig.DEBUG) {
-            listOf("Feature1", "Feature2")
-        } else {
-            listOf("Feature1")
+            adapter.submitList(DataUsers.userServer.toList())
         }
     }
 }
+
+fun getFeatures(): List<String> {
+    return if (BuildConfig.DEBUG) {
+        listOf("Feature1", "Feature2")
+    } else {
+        listOf("Feature1")
+    }
+}
+
 
 

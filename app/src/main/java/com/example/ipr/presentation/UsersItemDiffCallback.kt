@@ -6,7 +6,7 @@ import com.example.ipr.data.Users
 class UsersItemDiffCallback : DiffUtil.ItemCallback<Users>() {
 
     override fun areItemsTheSame(oldItem: Users, newItem: Users): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Users, newItem: Users): Boolean {

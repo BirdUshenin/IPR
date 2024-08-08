@@ -7,8 +7,7 @@ import com.example.ipr.R
 import com.example.ipr.data.Users
 import com.example.ipr.domain.OnUserItemClickListener
 
-class AdapterUsers(private val userList: List<Users>) :
-    ListAdapter<Users, UsersItemViewHolder>(UsersItemDiffCallback()) {
+class AdapterUsers : ListAdapter<Users, UsersItemViewHolder>(UsersItemDiffCallback()) {
 
     var clickListener: OnUserItemClickListener? = null
 
@@ -22,14 +21,10 @@ class AdapterUsers(private val userList: List<Users>) :
     }
 
     override fun onBindViewHolder(viewHolder: UsersItemViewHolder, position: Int) {
-        val user = userList[position]
+        val user = getItem(position)
         viewHolder.bind(user)
         viewHolder.itemView.setOnClickListener {
             clickListener?.onUserItemClicked(user)
         }
-    }
-
-    override fun getItemCount(): Int {
-        return userList.size
     }
 }
