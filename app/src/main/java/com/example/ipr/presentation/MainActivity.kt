@@ -1,65 +1,64 @@
 package com.example.ipr.presentation
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.ipr.BuildConfig
+import com.example.ipr.R
+import com.example.ipr.data.VerticalItem
 import com.example.ipr.domain.OnUserEditListener
 import com.example.ipr.domain.OnUserItemClickListener
-import com.example.ipr.R
-import com.example.ipr.data.Users
-import com.example.ipr.databinding.ActivityMainBinding
-import com.squareup.picasso.BuildConfig
+import data.DataCities
 import data.DataUsers
 
 class MainActivity : AppCompatActivity(), OnUserEditListener {
 
-    private lateinit var adapter: AdapterUsers
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: MultiTypeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        val recyclerView = binding.recyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = AdapterUsers()
+        adapter = MultiTypeAdapter(
+            listOf(
+                VerticalItemDelegate(object : OnUserItemClickListener {
+                    override fun onUserItemClicked(user: VerticalItem) {
+                        val fragmentB = EditUserFragment()
+                        fragmentB.setOnUserEditListener(this@MainActivity)
+                        fragmentB.setUser(user)
 
-        adapter.setOnUserItemClickListener(object : OnUserItemClickListener {
-            override fun onUserItemClicked(user: Users) {
-                val fragmentB = EditUserFragment()
-                fragmentB.setOnUserEditListener(this@MainActivity)
-                fragmentB.setUser(user)
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragEdit, fragmentB)
+                            .addToBackStack("FragEdit")
+                            .commit()
+                    }
+                }),
+                HorizontalItemDelegate()
+            ),
+            null
+        )
 
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragEdit, fragmentB)
-                    .addToBackStack("FragEdit")
-                    .commit()
-            }
-        })
         recyclerView.adapter = adapter
 
-        val userServer = DataUsers.userServer
-        adapter.submitList(userServer)
+        updateList()
     }
 
-    override fun onUserEdited(user: Users) {
+    private fun updateList() {
+        val verticalItems = DataUsers.userServer
+        val horizontalItems = DataCities.citiesServer
+        val items = verticalItems + horizontalItems
+        adapter.submitList(items)
+    }
+
+    override fun onUserEdited(user: VerticalItem) {
         val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
         if (index != -1) {
             DataUsers.userServer[index] = user
-            adapter.submitList(DataUsers.userServer.toList())
+            updateList()
         }
     }
 }
@@ -71,6 +70,3 @@ fun getFeatures(): List<String> {
         listOf("Feature1")
     }
 }
-
-
-
