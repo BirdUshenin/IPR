@@ -5,10 +5,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ipr.domain.OnUserEditListener
 import com.example.ipr.domain.OnUserItemClickListener
 import com.example.ipr.R
+import com.example.ipr.data.Cities
 import com.example.ipr.data.Users
 import com.example.ipr.databinding.ActivityMainBinding
 import com.squareup.picasso.BuildConfig
@@ -17,6 +19,8 @@ import data.DataUsers
 class MainActivity : AppCompatActivity(), OnUserEditListener {
 
     private lateinit var adapter: AdapterUsers
+    private lateinit var citiesAdapter: AdapterCities
+    private lateinit var concatAdapter: ConcatAdapter
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,23 +40,20 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = AdapterUsers()
+        citiesAdapter = AdapterCities()
 
-        adapter.setOnUserItemClickListener(object : OnUserItemClickListener {
-            override fun onUserItemClicked(user: Users) {
-                val fragmentB = EditUserFragment()
-                fragmentB.setOnUserEditListener(this@MainActivity)
-                fragmentB.setUser(user)
-
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragEdit, fragmentB)
-                    .addToBackStack("FragEdit")
-                    .commit()
-            }
-        })
-        recyclerView.adapter = adapter
+        concatAdapter = ConcatAdapter(HorizontalCitiesAdapter(citiesAdapter), adapter)
+        recyclerView.adapter = concatAdapter
 
         val userServer = DataUsers.userServer
         adapter.submitList(userServer)
+
+        val cities = listOf(
+            Cities(1, "New York"),
+            Cities(2, "Los Angeles"),
+            Cities(3, "Chicago"),
+        )
+        citiesAdapter.submitList(cities)
     }
 
     override fun onUserEdited(user: Users) {
