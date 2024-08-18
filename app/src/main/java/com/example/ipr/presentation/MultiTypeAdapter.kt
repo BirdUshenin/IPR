@@ -3,9 +3,12 @@ package com.example.ipr.presentation
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ipr.domain.OnUserItemClickListener
 
-class MultiTypeAdapter(private val delegates: List<AdapterDelegate>) :
-    ListAdapter<Any, RecyclerView.ViewHolder>(DiffCallback()) {
+class MultiTypeAdapter(
+    private val delegates: List<AdapterDelegate>,
+    private val clickListener: OnUserItemClickListener?
+) : ListAdapter<Any, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
