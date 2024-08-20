@@ -10,9 +10,9 @@ object DataCities {
             id = 1,
             title = "Cities",
             subItems = listOf(
-                SubItem(R.drawable.moscow),
-                SubItem(R.drawable.nn),
-                SubItem(R.drawable.spb),
+                SubItem(R.drawable.sprin, "Спрингфилд"),
+                SubItem(R.drawable.nyc, "Нью Йорк"),
+                SubItem(R.drawable.paris, "Париж")
             )
         )
     )

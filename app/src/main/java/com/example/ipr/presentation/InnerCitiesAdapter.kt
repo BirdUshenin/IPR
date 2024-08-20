@@ -9,8 +9,11 @@ import com.example.ipr.R
 import com.example.ipr.data.SubItem
 import com.squareup.picasso.Picasso
 
-class InnerHorizontalAdapter(private val items: List<SubItem>) :
-    RecyclerView.Adapter<InnerHorizontalAdapter.InnerHorizontalViewHolder>() {
+class InnerCitiesAdapter(
+    private val items: List<SubItem>,
+    private val clickListener: (SubItem) -> Unit
+) :
+    RecyclerView.Adapter<InnerCitiesAdapter.InnerHorizontalViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHorizontalViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cities_list, parent, false)
@@ -18,7 +21,7 @@ class InnerHorizontalAdapter(private val items: List<SubItem>) :
     }
 
     override fun onBindViewHolder(holder: InnerHorizontalViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], clickListener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -26,10 +29,14 @@ class InnerHorizontalAdapter(private val items: List<SubItem>) :
     class InnerHorizontalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val photoUser: ImageView = itemView.findViewById(R.id.inner_item_image)
 
-        fun bind(item: SubItem) {
+        fun bind(item: SubItem, clickListener: (SubItem) -> Unit) {
             Picasso.get()
                 .load(item.photo)
                 .into(photoUser)
+
+            itemView.setOnClickListener {
+                clickListener(item)
+            }
         }
     }
 }

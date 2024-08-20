@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ipr.R
-import com.example.ipr.data.CitiesItem
 import com.example.ipr.data.SimpsonsItem
 import com.example.ipr.domain.OnCitiesClickListener
 import com.example.ipr.domain.OnUserEditListener
@@ -42,10 +41,9 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
                 }),
                 CitiesItemDelegate(
                     object : OnCitiesClickListener {
-                        val text =  ""
-                        val duration = Toast.LENGTH_SHORT
-                        val toast = Toast.makeText(applicationContext, text, duration)
-                        override fun onCitiesItemClicked(cities: CitiesItem) {
+                        override fun onCitiesItemClicked(city: String) {
+                            val duration = Toast.LENGTH_SHORT
+                            val toast = Toast.makeText(applicationContext, city, duration)
                             toast.show()
                         }
                     }

@@ -20,4 +20,4 @@ data class CitiesItem(
     override fun item(): String = "CitiesItem $title"
 }
 
-data class SubItem(val photo: Int)
+data class SubItem(val photo: Int, val name: String)
