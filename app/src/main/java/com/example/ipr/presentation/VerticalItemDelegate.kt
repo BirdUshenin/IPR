@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ipr.R
 import com.example.ipr.data.VerticalItem
 import com.example.ipr.domain.OnUserItemClickListener
+import com.example.ipr.domain.RecyclerItem
 import com.squareup.picasso.Picasso
 
 class VerticalItemDelegate(private val clickListener: OnUserItemClickListener?) : AdapterDelegate {
@@ -18,7 +19,7 @@ class VerticalItemDelegate(private val clickListener: OnUserItemClickListener?) 
         return VerticalItemViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Any) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: RecyclerItem) {
         if (holder is VerticalItemViewHolder && item is VerticalItem) {
             holder.bind(item)
             holder.itemView.setOnClickListener {
@@ -27,7 +28,7 @@ class VerticalItemDelegate(private val clickListener: OnUserItemClickListener?) 
         }
     }
 
-    override fun isForViewType(item: Any): Boolean {
+    override fun isForViewType(item: RecyclerItem): Boolean {
         return item is VerticalItem
     }
 }

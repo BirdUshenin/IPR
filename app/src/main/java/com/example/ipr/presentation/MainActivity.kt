@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
                     }
                 }),
                 HorizontalItemDelegate()
-            ),
-            null
+            )
         )
 
         recyclerView.adapter = adapter
@@ -55,11 +54,13 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
     }
 
     override fun onUserEdited(user: VerticalItem) {
-        val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
+        val index = DataUsers.userServer.indexOfFirst { it.id == user.item() }
+
         if (index != -1) {
             DataUsers.userServer[index] = user
             updateList()
         }
+
     }
 }
 
