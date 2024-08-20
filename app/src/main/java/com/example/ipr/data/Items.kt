@@ -17,7 +17,7 @@ data class HorizontalItem(
     val title: String,
     val subItems: List<SubItem>
 ) : RecyclerItem {
-    override fun item(): String = "HorizontalItem"
+    override fun item(): String = "HorizontalItem $title"
 }
 
 data class SubItem(val photo: Int)

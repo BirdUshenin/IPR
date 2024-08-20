@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ipr.BuildConfig
 import com.example.ipr.R
 import com.example.ipr.data.VerticalItem
 import com.example.ipr.domain.OnUserEditListener
@@ -65,6 +64,9 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
     }
 }
 
+/***
+ *  Build variants change (Debug or Release)
+ *
 fun getFeatures(): List<String> {
     return if (BuildConfig.DEBUG) {
         listOf("Feature1", "Feature2")
@@ -72,3 +74,4 @@ fun getFeatures(): List<String> {
         listOf("Feature1")
     }
 }
+***/
