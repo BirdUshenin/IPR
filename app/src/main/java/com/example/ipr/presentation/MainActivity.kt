@@ -1,13 +1,16 @@
 package com.example.ipr.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ipr.R
-import com.example.ipr.data.VerticalItem
+import com.example.ipr.data.CitiesItem
+import com.example.ipr.data.SimpsonsItem
+import com.example.ipr.domain.OnCitiesClickListener
 import com.example.ipr.domain.OnUserEditListener
-import com.example.ipr.domain.OnUserItemClickListener
+import com.example.ipr.domain.OnSimpsonItemClickListener
 import com.example.ipr.domain.RecyclerItem
 import data.DataCities
 import data.DataUsers
@@ -25,11 +28,11 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
 
         adapter = MultiTypeAdapter(
             listOf(
-                VerticalItemDelegate(object : OnUserItemClickListener {
-                    override fun onUserItemClicked(user: VerticalItem) {
+                SimpsonsItemDelegate(object : OnSimpsonItemClickListener {
+                    override fun onSimpsonItemClicked(character: SimpsonsItem) {
                         val fragmentB = EditUserFragment()
                         fragmentB.setOnUserEditListener(this@MainActivity)
-                        fragmentB.setUser(user)
+                        fragmentB.setUser(character)
 
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fragEdit, fragmentB)
@@ -37,7 +40,16 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
                             .commit()
                     }
                 }),
-                HorizontalItemDelegate()
+                CitiesItemDelegate(
+                    object : OnCitiesClickListener {
+                        val text =  ""
+                        val duration = Toast.LENGTH_SHORT
+                        val toast = Toast.makeText(applicationContext, text, duration)
+                        override fun onCitiesItemClicked(cities: CitiesItem) {
+                            toast.show()
+                        }
+                    }
+                )
             )
         )
 
@@ -54,7 +66,7 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
     }
 
     override fun onUserEdited(user: RecyclerItem) {
-        (user as VerticalItem).let {
+        (user as SimpsonsItem).let {
             val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
             if (index != -1) {
                 DataUsers.userServer[index] = user

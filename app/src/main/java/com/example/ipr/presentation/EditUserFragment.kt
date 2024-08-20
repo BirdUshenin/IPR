@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import com.example.ipr.data.VerticalItem
+import com.example.ipr.data.SimpsonsItem
 import com.example.ipr.databinding.FragmentEditUserBinding
 import com.example.ipr.domain.OnUserEditListener
 
 class EditUserFragment : Fragment() {
 
     private lateinit var binding: FragmentEditUserBinding
-    private lateinit var user: VerticalItem
+    private lateinit var user: SimpsonsItem
     private lateinit var onUserEditListener: OnUserEditListener
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class EditUserFragment : Fragment() {
             val result3 = editTextNumber.text.toString()
             setFragmentResult("result_key3", bundleOf("data" to result3))
 
-            val updatedUser = VerticalItem(
+            val updatedUser = SimpsonsItem(
                 user.id,
                 user.photo,
                 result,
@@ -55,7 +55,7 @@ class EditUserFragment : Fragment() {
         onUserEditListener = listener
     }
 
-    fun setUser(user: VerticalItem) {
+    fun setUser(user: SimpsonsItem) {
         this.user = user
         if (::binding.isInitialized) {
             binding.editTextName.setText(user.name)

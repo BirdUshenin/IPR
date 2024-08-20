@@ -1,12 +1,12 @@
 package data
 
 import com.example.ipr.R
-import com.example.ipr.data.HorizontalItem
+import com.example.ipr.data.CitiesItem
 import com.example.ipr.data.SubItem
 
 object DataCities {
     val citiesServer = listOf(
-        HorizontalItem(
+        CitiesItem(
             id = 1,
             title = "Cities",
             subItems = listOf(
