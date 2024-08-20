@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ipr.R
 import com.example.ipr.data.HorizontalItem
+import com.example.ipr.domain.RecyclerItem
 
 class HorizontalItemDelegate : AdapterDelegate {
 
@@ -16,13 +17,13 @@ class HorizontalItemDelegate : AdapterDelegate {
         return HorizontalItemViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Any) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: RecyclerItem) {
         if (holder is HorizontalItemViewHolder && item is HorizontalItem) {
             holder.bind(item)
         }
     }
 
-    override fun isForViewType(item: Any): Boolean {
+    override fun isForViewType(item: RecyclerItem): Boolean {
         return item is HorizontalItem
     }
 }

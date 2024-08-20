@@ -1,17 +1,25 @@
 package com.example.ipr.presentation
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ipr.domain.OnUserItemClickListener
+import com.example.ipr.domain.RecyclerItem
 
 class MultiTypeAdapter(
     private val delegates: List<AdapterDelegate>,
-    private val clickListener: OnUserItemClickListener?
-) : ListAdapter<Any, RecyclerView.ViewHolder>(DiffCallback()) {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var items: List<RecyclerItem> = emptyList()
+
+    fun submitList(newList: List<RecyclerItem>) {
+        val diffCallback = DiffCallback(items, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        items = newList
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
+        val item = items[position]
         return delegates.indexOfFirst { it.isForViewType(item) }
     }
 
@@ -20,7 +28,9 @@ class MultiTypeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = items[position]
         delegates[holder.itemViewType].onBindViewHolder(holder, item)
     }
+
+    override fun getItemCount(): Int = items.size
 }
