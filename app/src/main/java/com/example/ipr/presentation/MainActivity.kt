@@ -9,6 +9,7 @@ import com.example.ipr.R
 import com.example.ipr.data.VerticalItem
 import com.example.ipr.domain.OnUserEditListener
 import com.example.ipr.domain.OnUserItemClickListener
+import com.example.ipr.domain.RecyclerItem
 import data.DataCities
 import data.DataUsers
 
@@ -53,14 +54,14 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
         adapter.submitList(items)
     }
 
-    override fun onUserEdited(user: VerticalItem) {
-        val index = DataUsers.userServer.indexOfFirst { it.id == user.item() }
-
-        if (index != -1) {
-            DataUsers.userServer[index] = user
-            updateList()
+    override fun onUserEdited(user: RecyclerItem) {
+        (user as VerticalItem).let {
+            val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
+            if (index != -1) {
+                DataUsers.userServer[index] = user
+                updateList()
+            }
         }
-
     }
 }
 

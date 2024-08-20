@@ -9,7 +9,7 @@ data class VerticalItem(
     val surname: String,
     val phoneNumber: String
 ) : RecyclerItem {
-    override fun item(): Int = id
+    override fun item(): String = "VerticalItem $name"
 }
 
 data class HorizontalItem(
@@ -17,7 +17,7 @@ data class HorizontalItem(
     val title: String,
     val subItems: List<SubItem>
 ) : RecyclerItem {
-    override fun item(): Int = id
+    override fun item(): String = "HorizontalItem"
 }
 
 data class SubItem(val photo: Int)
