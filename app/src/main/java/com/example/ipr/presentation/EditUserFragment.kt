@@ -2,53 +2,50 @@ package com.example.ipr.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import com.example.ipr.data.SimpsonsItem
 import com.example.ipr.databinding.FragmentEditUserBinding
 import com.example.ipr.domain.OnUserEditListener
+import com.example.ipr.presentation.MainActivity.Companion.EDIT_FRAGMENT
 
 class EditUserFragment : Fragment() {
 
-    private lateinit var binding: FragmentEditUserBinding
-    private lateinit var user: SimpsonsItem
-    private lateinit var onUserEditListener: OnUserEditListener
+    private var onUserEditListener: OnUserEditListener? = null
+    private var binding: FragmentEditUserBinding? = null
+    private var user: SimpsonsItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): LinearLayout? {
+
         binding = FragmentEditUserBinding.inflate(inflater)
 
-        val editTextName = binding.editTextName
-        val editSurname = binding.editSurname
-        val editTextNumber = binding.editTextNumber
+        val editTextName = binding?.editTextName
+        val editSurname = binding?.editSurname
+        val editTextNumber = binding?.editTextNumber
+        val buttonEditUser = binding?.buttonEditUser
 
-        val buttonEditUser = binding.buttonEditUser
-        buttonEditUser.setOnClickListener {
-            val result = editTextName.text.toString()
+        buttonEditUser?.setOnClickListener {
+            val name = editTextName?.text.toString()
+            val surname = editSurname?.text.toString()
+            val phoneNumber = editTextNumber?.text.toString()
 
-            setFragmentResult("result_key", bundleOf("data" to result))
-            val result2 = editSurname.text.toString()
-            setFragmentResult("result_key2", bundleOf("data" to result2))
-            val result3 = editTextNumber.text.toString()
-            setFragmentResult("result_key3", bundleOf("data" to result3))
-
-            val updatedUser = SimpsonsItem(
-                user.id,
-                user.photo,
-                result,
-                result2,
-                result3
-            )
-            onUserEditListener.onUserEdited(updatedUser)
-            requireActivity().supportFragmentManager.popBackStack("FragmentUser", 0)
-
+            user?.let { userItem ->
+                val updatedUser = SimpsonsItem(
+                    userItem.id,
+                    userItem.photo,
+                    name,
+                    surname,
+                    phoneNumber
+                )
+                onUserEditListener?.onUserEdited(updatedUser)
+            }
+            requireActivity().supportFragmentManager.popBackStack(EDIT_FRAGMENT, 0)
         }
-        return binding.root
+        return binding?.root
     }
 
     fun setOnUserEditListener(listener: OnUserEditListener) {
@@ -57,7 +54,7 @@ class EditUserFragment : Fragment() {
 
     fun setUser(user: SimpsonsItem) {
         this.user = user
-        if (::binding.isInitialized) {
+        binding?.let { binding ->
             binding.editTextName.setText(user.name)
             binding.editSurname.setText(user.surname)
             binding.editTextNumber.setText(user.phoneNumber)

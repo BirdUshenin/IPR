@@ -10,13 +10,13 @@ import com.example.ipr.data.SimpsonsItem
 import com.example.ipr.domain.OnCitiesClickListener
 import com.example.ipr.domain.OnUserEditListener
 import com.example.ipr.domain.OnSimpsonItemClickListener
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 import data.DataCities
 import data.DataUsers
 
 class MainActivity : AppCompatActivity(), OnUserEditListener {
 
-    private lateinit var adapter: MultiTypeAdapter
+    private var adapter: MultiTypeAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
             listOf(
                 SimpsonsItemDelegate(object : OnSimpsonItemClickListener {
                     override fun onSimpsonItemClicked(character: SimpsonsItem) {
-                        val fragmentB = EditUserFragment()
-                        fragmentB.setOnUserEditListener(this@MainActivity)
-                        fragmentB.setUser(character)
+                        val editUserFragment = EditUserFragment()
+                        editUserFragment.setOnUserEditListener(this@MainActivity)
+                        editUserFragment.setUser(character)
 
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragEdit, fragmentB)
-                            .addToBackStack("FragEdit")
+                            .replace(R.id.fragEdit, editUserFragment)
+                            .addToBackStack(EDIT_FRAGMENT)
                             .commit()
                     }
                 }),
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
         val verticalItems = DataUsers.userServer
         val horizontalItems = DataCities.citiesServer
         val items = verticalItems + horizontalItems
-        adapter.submitList(items)
+        adapter?.submitList(items)
     }
 
     override fun onUserEdited(user: RecyclerItem) {
@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity(), OnUserEditListener {
                 updateList()
             }
         }
+    }
+
+    companion object {
+        const val EDIT_FRAGMENT = "FRAGMENT_EDIT"
     }
 }
 

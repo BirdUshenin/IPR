@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ipr.R
 import com.example.ipr.data.SimpsonsItem
 import com.example.ipr.domain.OnSimpsonItemClickListener
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 import com.squareup.picasso.Picasso
 
 class SimpsonsItemDelegate(

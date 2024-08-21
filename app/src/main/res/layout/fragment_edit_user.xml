@@ -11,24 +11,24 @@
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Имя" />
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/editSurname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Фамилия" />
+        android:hint="@string/surname" />
 
     <EditText
         android:id="@+id/editTextNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Номер телефона" />
+        android:hint="@string/phone" />
 
     <Button
         android:id="@+id/buttonEditUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сохранить" />
+        android:text="@string/save" />
 
 </LinearLayout>

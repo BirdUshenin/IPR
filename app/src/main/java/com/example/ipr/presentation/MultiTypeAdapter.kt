@@ -3,7 +3,7 @@ package com.example.ipr.presentation
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 
 class MultiTypeAdapter(
     private val delegates: List<AdapterDelegate>,

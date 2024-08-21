@@ -1,7 +1,7 @@
 package com.example.ipr.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 
 class DiffCallback(
     private val oldList: List<RecyclerItem>,
@@ -15,7 +15,7 @@ class DiffCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return oldItem.item() == newItem.item()
+        return oldItem.itemTag() == newItem.itemTag()
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

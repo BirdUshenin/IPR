@@ -2,7 +2,7 @@ package com.example.ipr.presentation
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 
 interface AdapterDelegate {
     fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder

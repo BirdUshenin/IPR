@@ -9,7 +9,7 @@ import com.example.ipr.R
 import com.example.ipr.data.CitiesItem
 import com.example.ipr.data.SubItem
 import com.example.ipr.domain.OnCitiesClickListener
-import com.example.ipr.domain.RecyclerItem
+import com.example.ipr.data.RecyclerItem
 
 class CitiesItemDelegate(
     private val clickListener: OnCitiesClickListener?

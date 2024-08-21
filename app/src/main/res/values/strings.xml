@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IPR</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="phone">Номер телефона</string>
+    <string name="save">Сохранить</string>
 </resources>
