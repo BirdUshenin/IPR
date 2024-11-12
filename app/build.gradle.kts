@@ -33,12 +33,12 @@ android {
         create("SimpsonUsually") {
             applicationIdSuffix = ".flavor1"
             versionNameSuffix = "-flavor1"
-            buildConfigField("String", "SimpsonUsually", "\"simple\"") // Define Netbook for Camera flavor
+            buildConfigField("String", "SimpsonUsually", "\"simple\"")
         }
         create("SimpsonRock") {
             applicationIdSuffix = ".flavor2"
             versionNameSuffix = "-flavor2"
-            buildConfigField("String", "SimpsonRock", "\"rock\"") // Define Netbook for Netbook flavor
+            buildConfigField("String", "SimpsonRock", "\"rock\"")
         }
     }
 
